@@ -30,6 +30,8 @@ GENERATED=$(BUILDDIR)/generated/tls.c \
 
 GENERATOR=$(BUILDDIR)/generate
 
+CTYPES_PATH=$(shell ocamlfind query ctypes)
+
 all: stubs sharedlib
 
 sharedlib: $(BUILDDIR)/libtls.so
@@ -43,7 +45,7 @@ $(GENERATED): $(GENERATOR)
 	$(BUILDDIR)/generate $(BUILDDIR)/generated
 
 $(BUILDDIR)/%.o: %.c
-	gcc -c -o $@ -fPIC -I. -I $(OCAMLDIR)/.. $<
+	gcc -c -o $@ -fPIC -I. -I $(CTYPES_PATH) $<
 
 $(BUILDDIR)/%.cmx: %.ml
 	ocamlfind opt -c -o $@ -I $(BUILDDIR)/generated -I $(BUILDDIR)/lib -package $(PACKAGES) $<
