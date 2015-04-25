@@ -2,7 +2,7 @@ BUILDDIR=_build
 VPATH=$(BUILDDIR)
 OCAMLDIR=$(shell ocamlopt -where)
 $(shell mkdir -p $(BUILDDIR) $(BUILDDIR)/lib $(BUILDDIR)/stub-generator $(BUILDDIR)/test $(BUILDDIR)/generated)
-PACKAGES=ctypes.stubs,ctypes.foreign
+PACKAGES=ctypes.stubs
 
 # The files used to build the stub generator.
 GENERATOR_FILES=$(BUILDDIR)/lib/tls_types.cmx \
