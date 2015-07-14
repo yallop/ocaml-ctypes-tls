@@ -37,7 +37,7 @@ all: stubs sharedlib
 sharedlib: $(BUILDDIR)/libtls.so
 
 $(BUILDDIR)/libtls.so: $(LIBFILES)
-	ocamlfind opt -o $@ -linkpkg -output-obj -package $(PACKAGES) $(filter %.cmx,$(LIBFILES))
+	ocamlfind opt -o $@ -linkpkg -output-obj -runtime-variant _pic -package $(PACKAGES) $(filter %.cmx,$(LIBFILES))
 
 stubs: $(GENERATED)
 
