@@ -1,36 +1,24 @@
 open Ctypes
 open Tls_types
 
-(* We need to think about the semantics here.  Is there an extra level
-   of indirection? *)
-external create_stable_reference : Obj.t -> unit ptr = "%identity"
-external read_stable_reference : unit ptr -> Obj.t = "%identity"
-external release_stable_reference : unit ptr -> unit = "%identity"
-
 module Make (T : TLS) =
 struct
   (** Extend the TLS API so that each value of type [t] and each value of type
       [Config.t] holds a stable pointer to itself that can be passed to C. *)
 
-  type 'a stabilised =
-    { value: 'a;
-      (* This is mutable to set up the cyclic reference, but is never modified
-         after initialization. *)
-      mutable stable: unit ptr }
+  type 'a stabilised = { value: 'a; stable: unit ptr }
 
   let build value =
-    let r = { value; stable = null } in
-    r.stable <- create_stable_reference (Obj.repr r);
-    r
+    let rec r = lazy { value; stable = Ctypes.Root.create (Lazy.force r) } in
+    Lazy.force r
 
   let stable_ptr { stable } = stable
-  let of_stable_ptr p = Obj.magic (read_stable_reference p)
-  let release_stable_ptr { stable } = release_stable_reference stable
+  let of_stable_ptr = Ctypes.Root.get
+  let release_stable_ptr { stable } = Ctypes.Root.release stable
 
   let proj_1 f { value }       = f value
   let proj_2 f { value } x     = f value x
   let proj_3 f { value } x y   = f value x y
-  let proj_4 f { value } x y z = f value x y z
 
   type t = T.t stabilised
 
