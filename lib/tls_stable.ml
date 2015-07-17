@@ -1,16 +1,16 @@
 open Ctypes
 open Tls_types
 
+type 'a stabilised = { value: 'a; stable: unit ptr }
+
+let build value =
+  let rec r = lazy { value; stable = Ctypes.Root.create (Lazy.force r) } in
+  Lazy.force r
+
 module Make (T : TLS) =
 struct
   (** Extend the TLS API so that each value of type [t] and each value of type
       [Config.t] holds a stable pointer to itself that can be passed to C. *)
-
-  type 'a stabilised = { value: 'a; stable: unit ptr }
-
-  let build value =
-    let rec r = lazy { value; stable = Ctypes.Root.create (Lazy.force r) } in
-    Lazy.force r
 
   let stable_ptr { stable } = stable
   let of_stable_ptr = Ctypes.Root.get
