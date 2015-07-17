@@ -1,0 +1,19 @@
+lib/tls_stable.cmi : lib/tls_types.cmo
+lib/apply_bindings.cmo : lib/tls_dummy.cmo lib/tls_bindings.cmo
+lib/apply_bindings.cmx : lib/tls_dummy.cmx lib/tls_bindings.cmx
+lib/tls_bindings.cmo : lib/tls_types.cmo lib/tls_stable.cmi \
+    lib/tls_errors.cmo
+lib/tls_bindings.cmx : lib/tls_types.cmx lib/tls_stable.cmx \
+    lib/tls_errors.cmx
+lib/tls_dummy.cmo :
+lib/tls_dummy.cmx :
+lib/tls_errors.cmo : lib/tls_types.cmo
+lib/tls_errors.cmx : lib/tls_types.cmx
+lib/tls_stable.cmo : lib/tls_types.cmo lib/tls_stable.cmi
+lib/tls_stable.cmx : lib/tls_types.cmx lib/tls_stable.cmi
+lib/tls_types.cmo :
+lib/tls_types.cmx :
+stub-generator/generate.cmo : lib/tls_types.cmo lib/tls_dummy.cmo \
+    lib/tls_bindings.cmo
+stub-generator/generate.cmx : lib/tls_types.cmx lib/tls_dummy.cmx \
+    lib/tls_bindings.cmx

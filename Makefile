@@ -24,6 +24,8 @@ LIBFILES=$(BUILDDIR)/lib/tls_types.cmx \
          $(BUILDDIR)/generated/tls.o \
          $(BUILDDIR)/lib/apply_bindings.cmx 
 
+SOURCEFILES=$(wildcard lib/*.mli stub-generator/*.mli lib/*.ml stub-generator/*.ml)
+
 # The files that we'll generate
 GENERATED=$(BUILDDIR)/generated/tls.c \
           $(BUILDDIR)/generated/tls_generated_bindings.ml
@@ -59,8 +61,12 @@ $(GENERATOR): $(GENERATOR_FILES)
 clean:
 	rm -rf $(BUILDDIR)
 
+depend: $(SOURCEFILES)
+	ocamlfind ocamldep -I lib $^ > .depend
+
 # test: all
 # 	$(MAKE) -C $@
 # 	LD_LIBRARY_PATH=$(BUILDDIR) _build/test/test.native test/ocaml.svg
 
 # .PHONY: test
+include .depend
