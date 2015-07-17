@@ -5,6 +5,8 @@ lib/tls_bindings.cmo : lib/tls_types.cmo lib/tls_stable.cmi \
     lib/tls_errors.cmo
 lib/tls_bindings.cmx : lib/tls_types.cmx lib/tls_stable.cmx \
     lib/tls_errors.cmx
+lib/tls_config.cmo : lib/tls_types.cmo
+lib/tls_config.cmx : lib/tls_types.cmx
 lib/tls_dummy.cmo :
 lib/tls_dummy.cmx :
 lib/tls_errors.cmo : lib/tls_types.cmo

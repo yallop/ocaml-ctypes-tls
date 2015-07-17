@@ -20,6 +20,7 @@ LIBFILES=$(BUILDDIR)/lib/tls_types.cmx \
          $(BUILDDIR)/lib/tls_stable.cmi \
          $(BUILDDIR)/lib/tls_stable.cmx \
          $(BUILDDIR)/lib/tls_bindings.cmx \
+         $(BUILDDIR)/lib/tls_config.cmx \
          $(BUILDDIR)/generated/tls_generated_bindings.cmx	\
          $(BUILDDIR)/generated/tls.o \
          $(BUILDDIR)/lib/apply_bindings.cmx 
