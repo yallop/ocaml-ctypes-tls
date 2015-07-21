@@ -64,6 +64,10 @@ struct
       (tls_config @-> string @-> returning int)
       T.Config.set_ca_path
 
+  let tls_config_set_ca_mem = I.internal "tls_config_set_ca_mem"
+      (tls_config @-> ptr uint8_t @-> size_t @-> returning int)
+      (fun t buf n -> T.Config.set_ca_mem t (uchar_bigarray_view buf n))
+
   let tls_config_set_cert_file = I.internal "tls_config_set_cert_file"
       (tls_config @-> string @-> returning int)
       T.Config.set_cert_file
@@ -76,9 +80,13 @@ struct
       (tls_config @-> string @-> returning int)
       T.Config.set_ciphers
 
-  let tls_config_set_ecdhcurve = I.internal "tls_config_set_ecdhcurve"
+  let tls_config_set_dheparams = I.internal "tls_config_set_dheparams"
       (tls_config @-> string @-> returning int)
-      T.Config.set_ecdhcurve
+      T.Config.set_dheparams
+
+  let tls_config_set_ecdhecurve = I.internal "tls_config_set_ecdhecurve"
+      (tls_config @-> string @-> returning int)
+      T.Config.set_ecdhecurve
 
   let tls_config_set_key_file = I.internal "tls_config_set_key_file"
       (tls_config @-> string @-> returning int)
@@ -99,6 +107,10 @@ struct
   let tls_config_clear_keys = I.internal "tls_config_clear_keys"
       (tls_config @-> returning void)
       T.Config.clear_keys
+
+  let tls_config_parse_protocols = I.internal "tls_config_parse_protocols"
+      (ptr uint32_t @-> string @-> returning int)
+      T.Config.parse_protocols
 
   let tls_config_insecure_noverifyhost = I.internal "tls_config_insecure_noverifyhost"
       (tls_config @-> returning void)

@@ -35,15 +35,18 @@ struct
 
     let set_ca_file           = proj_1 T.Config.set_ca_file
     let set_ca_path           = proj_1 T.Config.set_ca_path
+    let set_ca_mem            = proj_1 T.Config.set_ca_mem
     let set_cert_file         = proj_1 T.Config.set_cert_file
     let set_cert_mem          = proj_1 T.Config.set_cert_mem
     let set_ciphers           = proj_1 T.Config.set_ciphers
-    let set_ecdhcurve         = proj_1 T.Config.set_ecdhcurve
+    let set_dheparams         = proj_1 T.Config.set_dheparams
+    let set_ecdhecurve        = proj_1 T.Config.set_ecdhecurve
     let set_key_file          = proj_1 T.Config.set_key_file
     let set_key_mem           = proj_1 T.Config.set_key_mem
     let set_protocols         = proj_1 T.Config.set_protocols
     let set_verify_depth      = proj_1 T.Config.set_verify_depth
     let clear_keys            = proj_1 T.Config.clear_keys
+    let parse_protocols       = T.Config.parse_protocols
     let insecure_noverifyhost = proj_1 T.Config.insecure_noverifyhost
     let insecure_noverifycert = proj_1 T.Config.insecure_noverifycert
     let verify                = proj_1 T.Config.verify

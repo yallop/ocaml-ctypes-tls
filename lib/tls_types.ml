@@ -12,15 +12,18 @@ sig
   val create : unit -> t
   val set_ca_file : t -> string -> unit
   val set_ca_path : t -> string -> unit
+  val set_ca_mem : t -> uchar_bigarray -> unit
   val set_cert_file : t -> string -> unit
   val set_cert_mem : t -> uchar_bigarray -> unit
   val set_ciphers : t -> string -> unit
-  val set_ecdhcurve : t -> string -> unit
+  val set_dheparams : t -> string -> unit
+  val set_ecdhecurve : t -> string -> unit
   val set_key_file : t -> string -> unit
   val set_key_mem : t -> uchar_bigarray -> unit
   val set_protocols : t -> protocol list -> unit
   val set_verify_depth : t -> int -> unit
   val clear_keys : t -> unit
+  val parse_protocols : string -> Unsigned.uint32
   val insecure_noverifyhost : t -> unit
   val insecure_noverifycert : t -> unit
   val verify : t -> unit

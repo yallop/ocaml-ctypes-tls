@@ -40,14 +40,20 @@ struct
     include T.Config
     let set_ca_file      = handle_2 set_ca_file
     let set_ca_path      = handle_2 set_ca_path
+    let set_ca_mem       = handle_2 set_ca_mem
     let set_cert_file    = handle_2 set_cert_file
     let set_cert_mem     = handle_2 set_cert_mem
     let set_ciphers      = handle_2 set_ciphers
-    let set_ecdhcurve    = handle_2 set_ecdhcurve
+    let set_dheparams    = handle_2 set_dheparams
+    let set_ecdhecurve   = handle_2 set_ecdhecurve
     let set_key_file     = handle_2 set_key_file
     let set_key_mem      = handle_2 set_key_mem
     let set_protocols    = handle_2 set_protocols
     let set_verify_depth = handle_2 set_verify_depth
+    let parse_protocols out s =
+      match parse_protocols s with
+        exception e -> store_error e; -1
+      | v -> Ctypes.(out <-@ v); 0
   end
 
   let init           = handle_1 T.init
